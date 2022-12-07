@@ -13,9 +13,7 @@ type ConnectionDetailProps = {
   route: { params: ConnectionDetailsRouteParams }
 }
 
-export const ConnectionDetails: React.FC<ConnectionDetailProps> = ({
-  route,
-}) => {
+export const ConnectionDetails: React.FC<ConnectionDetailProps> = ({ route }) => {
   const {
     params: { id },
   } = route
@@ -27,9 +25,7 @@ export const ConnectionDetails: React.FC<ConnectionDetailProps> = ({
     <SafeAreaView>
       <FlatList
         data={Object.entries(record)}
-        renderItem={({ item: [key, value] }) => (
-          <RecordListItem title={key} subtitle={JSON.stringify(value)} />
-        )}
+        renderItem={({ item: [key, value] }) => <RecordListItem title={key} subtitle={JSON.stringify(value)} />}
       />
     </SafeAreaView>
   )

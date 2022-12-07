@@ -1,5 +1,4 @@
-const withEntitlementsPlist =
-  require('@expo/config-plugins').withEntitlementsPlist
+const withEntitlementsPlist = require('@expo/config-plugins').withEntitlementsPlist
 
 const withRemoveiOSNotificationEntitlement = (config) => {
   return withEntitlementsPlist(config, (mod) => {
@@ -20,10 +19,7 @@ const config = {
     resizeMode: 'contain',
     backgroundColor: '#ffffff',
   },
-  plugins: [
-    '@animo-id/indy-sdk-expo-plugin',
-    [withRemoveiOSNotificationEntitlement],
-  ],
+  plugins: ['@animo-id/indy-sdk-expo-plugin', [withRemoveiOSNotificationEntitlement]],
   updates: {
     fallbackToCacheTimeout: 0,
   },

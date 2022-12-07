@@ -18,31 +18,27 @@ export const formatRequestedCredentials = (
   record: ProofRecord,
   credentials: RequestedCredentials
 ): FormattedRequestedCredentials => {
-  const { requestedAttributes, requestedPredicates, selfAttestedAttributes } =
-    credentials
+  const { requestedAttributes, requestedPredicates, selfAttestedAttributes } = credentials
 
-  const proofRecordPredicates =
-    record.requestMessage?.indyProofRequest.requestedPredicates
+  const proofRecordPredicates = record.requestMessage?.indyProofRequest.requestedPredicates
 
   const attributeNames = (
-    Array.from(
-      record.requestMessage?.indyProofRequest.requestedAttributes.values()
-    ) as Array<{ names?: Array<string>; name?: string }>
+    Array.from(record.requestMessage?.indyProofRequest.requestedAttributes.values()) as Array<{
+      names?: Array<string>
+      name?: string
+    }>
   ).flatMap((nn) => (nn.name ? [nn.name] : nn.names))
 
   const predicateNames = (
-    Array.from(
-      record.requestMessage?.indyProofRequest.requestedPredicates.values()
-    ) as Array<{ names?: Array<string>; name?: string }>
+    Array.from(record.requestMessage?.indyProofRequest.requestedPredicates.values()) as Array<{
+      names?: Array<string>
+      name?: string
+    }>
   ).flatMap((nn) => (nn.name ? [nn.name] : nn.names))
 
   return [
     ...formatAttributes(requestedAttributes, attributeNames),
-    ...formatPredicates(
-      requestedPredicates,
-      proofRecordPredicates,
-      predicateNames
-    ),
+    ...formatPredicates(requestedPredicates, proofRecordPredicates, predicateNames),
     ...formatSelfAttested(selfAttestedAttributes),
   ]
 }

@@ -1,9 +1,4 @@
-import {
-  Agent,
-  CredentialExchangeRecord,
-  GetFormatDataReturn,
-  IndyCredentialFormat,
-} from '@aries-framework/core'
+import { Agent, CredentialExchangeRecord, GetFormatDataReturn, IndyCredentialFormat } from '@aries-framework/core'
 import type { PropsWithChildren } from 'react'
 
 import { useState, createContext, useContext, useEffect } from 'react'
@@ -23,10 +18,7 @@ type FormattedDataState = {
   loading: boolean
 }
 
-const addRecord = (
-  record: FormattedData,
-  state: FormattedDataState
-): FormattedDataState => {
+const addRecord = (record: FormattedData, state: FormattedDataState): FormattedDataState => {
   const newRecordsState = [...state.formattedData]
   newRecordsState.unshift(record)
   return {
@@ -35,10 +27,7 @@ const addRecord = (
   }
 }
 
-const updateRecord = (
-  record: FormattedData,
-  state: FormattedDataState
-): FormattedDataState => {
+const updateRecord = (record: FormattedData, state: FormattedDataState): FormattedDataState => {
   const newRecordsState = [...state.formattedData]
   const index = newRecordsState.findIndex((r) => r.id === record.id)
   if (index > -1) {
@@ -50,10 +39,7 @@ const updateRecord = (
   }
 }
 
-const removeRecord = (
-  record: FormattedData,
-  state: FormattedDataState
-): FormattedDataState => {
+const removeRecord = (record: FormattedData, state: FormattedDataState): FormattedDataState => {
   const newRecordsState = state.formattedData.filter((r) => r.id !== record.id)
   return {
     loading: state.loading,
@@ -61,23 +47,17 @@ const removeRecord = (
   }
 }
 
-const CredentialFormatDataContext = createContext<
-  FormattedDataState | undefined
->(undefined)
+const CredentialFormatDataContext = createContext<FormattedDataState | undefined>(undefined)
 
 export const useCredentialsFormatData = () => {
   const credentialFormatDataContext = useContext(CredentialFormatDataContext)
   if (!credentialFormatDataContext) {
-    throw new Error(
-      'useCredentialFormatData must be used within a CredentialFormatDataContextProvider'
-    )
+    throw new Error('useCredentialFormatData must be used within a CredentialFormatDataContextProvider')
   }
   return credentialFormatDataContext
 }
 
-export const useCredentialFormatDataById = (
-  id: string
-): FormattedData | undefined => {
+export const useCredentialFormatDataById = (id: string): FormattedData | undefined => {
   const { formattedData } = useCredentialsFormatData()
   return formattedData.find((c) => c.id === id)
 }
@@ -86,10 +66,7 @@ interface Props {
   agent?: Agent
 }
 
-const CredentialFormatDataProvider: React.FC<PropsWithChildren<Props>> = ({
-  agent,
-  children,
-}) => {
+const CredentialFormatDataProvider: React.FC<PropsWithChildren<Props>> = ({ agent, children }) => {
   const [state, setState] = useState<{
     formattedData: Array<FormattedData>
     loading: boolean
@@ -116,26 +93,19 @@ const CredentialFormatDataProvider: React.FC<PropsWithChildren<Props>> = ({
 
   useEffect(() => {
     if (!state.loading) {
-      const credentialAdded$ = recordsAddedByType(
-        agent,
-        CredentialExchangeRecord
-      ).subscribe(async (record) => {
+      const credentialAdded$ = recordsAddedByType(agent, CredentialExchangeRecord).subscribe(async (record) => {
         const formatData = await agent.credentials.getFormatData(record.id)
         setState(addRecord({ ...formatData, id: record.id }, state))
       })
 
-      const credentialUpdate$ = recordsUpdatedByType(
-        agent,
-        CredentialExchangeRecord
-      ).subscribe(async (record) => {
+      const credentialUpdate$ = recordsUpdatedByType(agent, CredentialExchangeRecord).subscribe(async (record) => {
         const formatData = await agent.credentials.getFormatData(record.id)
         setState(updateRecord({ ...formatData, id: record.id }, state))
       })
 
-      const credentialRemove$ = recordsRemovedByType(
-        agent,
-        CredentialExchangeRecord
-      ).subscribe((record) => setState(removeRecord(record, state)))
+      const credentialRemove$ = recordsRemovedByType(agent, CredentialExchangeRecord).subscribe((record) =>
+        setState(removeRecord(record, state))
+      )
 
       return () => {
         credentialAdded$.unsubscribe()
@@ -145,11 +115,7 @@ const CredentialFormatDataProvider: React.FC<PropsWithChildren<Props>> = ({
     }
   }, [state, agent])
 
-  return (
-    <CredentialFormatDataContext.Provider value={state}>
-      {children}
-    </CredentialFormatDataContext.Provider>
-  )
+  return <CredentialFormatDataContext.Provider value={state}>{children}</CredentialFormatDataContext.Provider>
 }
 
 export default CredentialFormatDataProvider

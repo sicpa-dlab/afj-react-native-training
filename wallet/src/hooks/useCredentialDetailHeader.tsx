@@ -31,9 +31,7 @@ export const useCredentialDetailsHeader = (id: string) => {
     navigation.setOptions({
       title: name ?? 'Unknown credential',
       headerShown: true,
-      headerRight: () => (
-        <Ionicons name="trash-outline" size={24} onPress={deleteCredential} />
-      ),
+      headerRight: () => <Ionicons name="trash-outline" size={24} onPress={deleteCredential} />,
     })
   }, [])
 }

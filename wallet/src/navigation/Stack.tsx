@@ -11,16 +11,9 @@ export const Stack = () => {
   const Stack = createNativeStackNavigator<StackParamList>()
 
   return (
-    <Stack.Navigator
-      initialRouteName="Tabs"
-      screenOptions={{ headerShown: false }}
-    >
+    <Stack.Navigator initialRouteName="Tabs" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Tabs" component={Tabs} />
-      <Stack.Screen
-        name="BarcodeScanner"
-        component={BarcodeScanner}
-        options={{ presentation: 'modal' }}
-      />
+      <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} options={{ presentation: 'modal' }} />
       <Stack.Screen name="CredentialDetails" component={CredentialDetails} />
       <Stack.Screen name="ConnectionDetails" component={ConnectionDetails} />
       <Stack.Screen name="ProofDetails" component={ProofDetails} />

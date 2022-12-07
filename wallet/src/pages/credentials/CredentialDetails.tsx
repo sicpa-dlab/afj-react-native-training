@@ -1,10 +1,6 @@
 import React, { useState } from 'react'
 import { FlatList, useTheme } from 'native-base'
-import {
-  useCredentialDetailsHeader,
-  useCredentialFormatDataById,
-  useStackNavigation,
-} from '../../hooks'
+import { useCredentialDetailsHeader, useCredentialFormatDataById, useStackNavigation } from '../../hooks'
 import { useAgent, useCredentialById } from '@aries-framework/react-hooks'
 import { CredentialState } from '@aries-framework/core'
 import { SafeAreaView } from 'react-native'
@@ -20,9 +16,7 @@ type CredentialDetailsProps = {
   route: { params: CredentialDetailsRouteParams }
 }
 
-export const CredentialDetails: React.FC<CredentialDetailsProps> = ({
-  route,
-}) => {
+export const CredentialDetails: React.FC<CredentialDetailsProps> = ({ route }) => {
   const {
     params: { id },
   } = route
@@ -52,9 +46,7 @@ export const CredentialDetails: React.FC<CredentialDetailsProps> = ({
   }
 
   const attributes: Record<string, string> = {}
-  formattedData?.offerAttributes?.forEach(
-    ({ name, value }) => (attributes[name] = value)
-  )
+  formattedData?.offerAttributes?.forEach(({ name, value }) => (attributes[name] = value))
 
   const onDeclineCredential = () => {
     try {
@@ -105,16 +97,11 @@ export const CredentialDetails: React.FC<CredentialDetailsProps> = ({
     <SafeAreaView style={{ flex: 1 }}>
       <FlatList
         data={Object.entries(attributes)}
-        renderItem={({ item }) => (
-          <ListItem title={item[0]} subtitle={item[1]} />
-        )}
+        renderItem={({ item }) => <ListItem title={item[0]} subtitle={item[1]} />}
         keyExtractor={(item) => item[0]}
       />
       {credential.state === CredentialState.OfferReceived && (
-        <DoubleButton
-          onDecline={onDeclineCredential}
-          onAccept={onAcceptCredential}
-        />
+        <DoubleButton onDecline={onDeclineCredential} onAccept={onAcceptCredential} />
       )}
     </SafeAreaView>
   )

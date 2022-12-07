@@ -28,9 +28,7 @@ export const useProofDetailsHeader = (id: string) => {
     navigation.setOptions({
       title: record.requestMessage.indyProofRequest.name ?? 'Unknown proof',
       headerShown: true,
-      headerRight: () => (
-        <Ionicons name={'trash-outline'} size={24} onPress={deleteProof} />
-      ),
+      headerRight: () => <Ionicons name={'trash-outline'} size={24} onPress={deleteProof} />,
     })
   }, [])
 }

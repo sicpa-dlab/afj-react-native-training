@@ -10,8 +10,7 @@ export const Credentials = () => {
   const { colors } = useTheme()
   const { records: connections, loading: loadingConnections } = useConnections()
   const { records: credentials, loading: loadingCredentials } = useCredentials()
-  const { formattedData, loading: loadingFormattedData } =
-    useCredentialsFormatData()
+  const { formattedData, loading: loadingFormattedData } = useCredentialsFormatData()
   const navigation = useStackNavigation()
 
   const onShowDetails = async (id: string) => {
@@ -42,9 +41,7 @@ export const Credentials = () => {
         if (data) {
           name = formatSchemaName(data.offer?.indy?.schema_id)
         }
-        const connection = connections.find(
-          (c) => c.id === credential.connectionId
-        )
+        const connection = connections.find((c) => c.id === credential.connectionId)
         const issuer = connection?.theirLabel ?? 'Unknown issuer'
         return (
           <CredentialItem
@@ -64,11 +61,7 @@ export const Credentials = () => {
                   p={3}
                 />
               ) : (
-                <Ionicons
-                  size={32}
-                  name="document-attach"
-                  color={colors.gray[500]}
-                />
+                <Ionicons size={32} name="document-attach" color={colors.gray[500]} />
               )}
             </Box>
           </CredentialItem>

@@ -25,12 +25,7 @@ export const RecordListItem: React.FC<PropsWithChildren<ListItemProps>> = ({
     >
       <HStack space={2}>
         <Box>{children}</Box>
-        <VStack
-          borderBottomWidth="1"
-          borderBottomColor="gray.100"
-          flex={1}
-          justifyContent="center"
-        >
+        <VStack borderBottomWidth="1" borderBottomColor="gray.100" flex={1} justifyContent="center">
           <Text
             _dark={{
               color: 'warmGray.50',

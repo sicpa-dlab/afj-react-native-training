@@ -21,18 +21,17 @@ export const BarcodeScanner = () => {
 
   const onAcceptInvitation = async () => {
     setIsLoading(true)
+    const onError = (e: unknown) => {
+      toast.show({
+        placement: 'top',
+        title: 'Something went wrong while accepting the invitation',
+        background: colors.error[500],
+      })
+      throw e
+    }
 
     // ========= IMPLEMENT =========
-    await agent.oob
-      .receiveInvitationFromUrl(scannedData, { reuseConnection: true })
-      .catch((e) => {
-        toast.show({
-          placement: 'top',
-          title: 'Something went wrong while accepting the invitation',
-          background: colors.error[500],
-        })
-        throw e
-      })
+    await agent.oob.receiveInvitationFromUrl(scannedData, { reuseConnection: true }).catch(onError)
     // ========= IMPLEMENT =========
 
     setIsLoading(false)
@@ -85,9 +84,7 @@ export const BarcodeScanner = () => {
   return (
     <Center flex={1}>
       <ExpoBarCodeScanner
-        onBarCodeScanned={
-          scannedData ? undefined : ({ data }) => setScannedData(data)
-        }
+        onBarCodeScanned={scannedData ? undefined : ({ data }) => setScannedData(data)}
         style={StyleSheet.absoluteFill}
       />
     </Center>

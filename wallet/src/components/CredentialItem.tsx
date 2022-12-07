@@ -63,10 +63,7 @@ export const CredentialItem: React.FC<PropsWithChildren<ListItemProps>> = ({
               color: 'warmGray.200',
             }}
           >
-            {`${subtitle.charAt(0).toUpperCase()}${subtitle.slice(1)}`.replace(
-              '-',
-              ' '
-            )}
+            {`${subtitle.charAt(0).toUpperCase()}${subtitle.slice(1)}`.replace('-', ' ')}
           </Text>
         </HStack>
       </VStack>

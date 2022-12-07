@@ -14,8 +14,7 @@ export const Connections = () => {
 
   if (loading) return <Loader />
 
-  const onShowDetails = (id: string) =>
-    navigation.navigate('ConnectionDetails', { id })
+  const onShowDetails = (id: string) => navigation.navigate('ConnectionDetails', { id })
 
   const noContent = <NoContent title="You have zero connections" />
 
@@ -33,11 +32,7 @@ export const Connections = () => {
             backgroundColor={item.imageUrl ? colors.white : '#F5F5F4'}
           >
             {item.imageUrl ? (
-              <Image
-                source={{ uri: item.imageUrl }}
-                size="xs"
-                alt="connection-image"
-              />
+              <Image source={{ uri: item.imageUrl }} size="xs" alt="connection-image" />
             ) : (
               <Text fontWeight={600}>{labelToLetters(item.theirLabel)}</Text>
             )}
@@ -76,11 +71,7 @@ export const Connections = () => {
             right: 0,
           }}
         >
-          <Ionicons
-            size={24}
-            style={{ color: colors.text[50] }}
-            name="qr-code-outline"
-          />
+          <Ionicons size={24} style={{ color: colors.text[50] }} name="qr-code-outline" />
         </TouchableOpacity>
       </Box>
     </SafeAreaView>

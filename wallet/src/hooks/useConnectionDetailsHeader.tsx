@@ -27,9 +27,7 @@ export const useConnectionDetailsHeader = (id: string) => {
     navigation.setOptions({
       title: record.theirLabel ?? 'Unknown Contact',
       headerShown: true,
-      headerRight: () => (
-        <Ionicons name={'trash-outline'} size={24} onPress={deleteConnection} />
-      ),
+      headerRight: () => <Ionicons name={'trash-outline'} size={24} onPress={deleteConnection} />,
     })
   }, [])
 }

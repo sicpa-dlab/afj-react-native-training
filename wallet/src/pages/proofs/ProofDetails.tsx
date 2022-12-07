@@ -5,10 +5,7 @@ import { useAgent, useProofById } from '@aries-framework/react-hooks'
 import { ProofState } from '@aries-framework/core'
 import { SafeAreaView } from 'react-native'
 import { useToast } from 'native-base'
-import {
-  formatRequestedCredentials,
-  FormattedRequestedCredentials,
-} from '../../utils/formatRequestedCredentials'
+import { formatRequestedCredentials, FormattedRequestedCredentials } from '../../utils/formatRequestedCredentials'
 import { DoubleButton, ListItem } from '../../components'
 import { customAlert } from '../../utils'
 
@@ -41,16 +38,10 @@ export const ProofDetails: React.FC<ProofDetailsProps> = ({ route }) => {
     void (async () => {
       // ========= IMPLEMENT =========
       try {
-        const creds = await agent.proofs.getRequestedCredentialsForProofRequest(
-          id
-        )
-        const requestedCredentials =
-          agent.proofs.autoSelectCredentialsForProofRequest(creds)
+        const creds = await agent.proofs.getRequestedCredentialsForProofRequest(id)
+        const requestedCredentials = agent.proofs.autoSelectCredentialsForProofRequest(creds)
 
-        const formattedCredentials = formatRequestedCredentials(
-          proof,
-          requestedCredentials
-        )
+        const formattedCredentials = formatRequestedCredentials(proof, requestedCredentials)
         if (formattedCredentials.length === 0) {
           deleteProof()
         } else {
@@ -107,11 +98,8 @@ export const ProofDetails: React.FC<ProofDetailsProps> = ({ route }) => {
 
   const onAcceptProof = async () => {
     try {
-      const creds = await agent.proofs.getRequestedCredentialsForProofRequest(
-        id
-      )
-      const requestedCredentials =
-        agent.proofs.autoSelectCredentialsForProofRequest(creds)
+      const creds = await agent.proofs.getRequestedCredentialsForProofRequest(id)
+      const requestedCredentials = agent.proofs.autoSelectCredentialsForProofRequest(creds)
       void agent.proofs.acceptRequest(id, requestedCredentials)
     } catch (e) {
       toast.show({
@@ -130,11 +118,7 @@ export const ProofDetails: React.FC<ProofDetailsProps> = ({ route }) => {
         data={fields}
         keyExtractor={(item) => item.name}
         renderItem={({ item: { name, value, isPredicate } }) => (
-          <ListItem
-            title={name}
-            subtitle={value}
-            subtitleColor={isPredicate ? 'success.500' : 'coolGray.600'}
-          />
+          <ListItem title={name} subtitle={value} subtitleColor={isPredicate ? 'success.500' : 'coolGray.600'} />
         )}
       />
       {proof.state === ProofState.RequestReceived && (
