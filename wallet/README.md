@@ -197,7 +197,7 @@ try {
 </details>
 
 <details>
-<summary>Accepting a proof request
+<summary>Accepting a proof request</summary>
 
 **file**: ./src/pages/proofs/ProofDetails.tsx
 
