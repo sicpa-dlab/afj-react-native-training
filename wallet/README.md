@@ -11,7 +11,7 @@
 <p align="center">
   <a href="#getting-started">Getting started</a> |
   <a href="#agent-setup">Agent Setup</a> |
-  <a href="#connection">Connections</a> |
+  <a href="#connections">Connections</a> |
   <a href="#credentials">Credentials</a> |
   <a href="#proofs">Proofs</a>
 </p>
