@@ -10,7 +10,10 @@
 
 <p align="center">
   <a href="#getting-started">Getting started</a> |
-  <a href="#snippets">Snippets</a> |
+  <a href="#agent-setup">Agent Setup</a> |
+  <a href="#connection">Connections</a> |
+  <a href="#credentials">Credentials</a> |
+  <a href="#proofs">Proofs</a>
 </p>
 
 ---
@@ -34,7 +37,7 @@ yarn ios
 yarn start
 ```
 
-## Snippets
+## Agent Setup
 
 <details>
 <summary>Agent Setup</summary>
@@ -69,6 +72,8 @@ export const initializeAgent = async () => {
 ```
 
 </details>
+
+## Connections
 
 <details>
 <summary>Parsing the barcode</summary>
@@ -123,59 +128,6 @@ way of connections (connections and Out of Band).
 
 </details>
 
-
-<details>
-<summary>Deleting a proof</summary>
-
-In this section we delete a proof. This does not mean that the receiver does not
-have your data anymore. This means that the record containing the exchange, is
-deleted from your local wallet.
-
-**file**: `./src/hooks/useProofDetailHeader.tsx`
-
-```diff
- const deleteProof = () => {
-   const onConfirm = () => {
-+    void agent.proofs.deleteById(id)
-     navigation.goBack()
-   }
-
-   customAlert({
-     title: 'Delete',
-     message: 'Are you sure you want to delete the proof?',
-     confirmOnPress: onConfirm,
-   })
- }
-```
-
-</details>
-
-<details>
-<summary>Deleting a credential</summary>
-
-In this section we delete a credential. When the credential has been removed from
-our wallet, we can not use it anymore for proof requests. This can be done if a
-credential is revoked by an issuer and does not need to be there anymore.
-
-**file**: `./src/hooks/useCredentialDetailHeader.tsx`
-
-```diff
- const deleteCredential = () => {
-   const onConfirm = () => {
-+    void agent.credentials.deleteById(id)
-     navigation.goBack()
-   }
-
-   customAlert({
-     title: 'Delete',
-     message: 'Are you sure you want to delete the credential?',
-     confirmOnPress: onConfirm,
-   })
- }
-```
-
-</details>
-
 <details>
 <summary>Deleting a connection</summary>
 
@@ -202,90 +154,7 @@ the record from our wallet and internally we have no reference to this anymore.
 
 </details>
 
-<details>
-<summary>Using hooks to get proof info</summary>
-
-In this section we call the hooks from `@aries-framework/react-hooks` to
-get the agent and the proof related to the `id` we receive from the routing.
-
-**file**: `./src/pages/proofs/ProofDetails.tsx`
-
-```diff
-  const navigation = useStackNavigation()
-  const { colors } = useTheme()
-  const toast = useToast()
-+ const { agent } = useAgent()
-+ const proof = useProofById(id)
-  const [fields, setFields] = useState<FormattedRequestedCredentials>([])
-```
-
-</details>
-
-<details>
-<summary>Selecting the credentials for the proof request</summary>
-
-In this section we select the required credentials for the incoming proof request.
-We call `agent.proofs.getRequestedCredentialsForProofRequest(id)` to get all the
-credentials in the wallet which can be used to fulfill the proof request. Afterwards,
-we call `agent.proofs.autoSelectCredentialsForProofRequest(credentials)` which will
-automatically pick the first matching credentials and makes this flow a lot easier for us.
-If the real world, we would let the user pick these credentials themselves, but the UI
-can get quite complex for this.
-
-**file**: `./src/pages/proofs/ProofDetails.tsx`
-
-```diff
-
- useEffect(() => {
-   void (async () => {
-      try {
-+       const credentials = await agent.proofs.getRequestedCredentialsForProofRequest(id)
-+       const requestedCredentials = agent.proofs.autoSelectCredentialsForProofRequest(credentials)
-
-        const formattedCredentials = formatRequestedCredentials(proof, requestedCredentials)
-        if (formattedCredentials.length === 0) {
-          deleteProof()
-        } else {
-          setFields(formattedCredentials)
-        }
-      } catch (e) {
-        toast.show({
-          placement: 'top',
-          title: e.toString(),
-          background: colors.error[500],
-        })
-        deleteProof()
-      }
-   })()
- }, [])
-```
-
-</details>
-
-<details>
-<summary>Deleting a proof</summary>
-
-In this section we implement the delete proof function so we can delete the proof
-when we do not have the required credentials for the request.
-
-**file**: `./src/pages/proofs/ProofDetails.tsx`
-
-```diff
- const deleteProof = () => {
-   const onConfirm = () => {
-+    void agent.proofs.deleteById(id)
-     navigation.goBack()
-   }
-
-   customAlert({
-     title: 'Delete',
-     message: 'Are you sure you want to delete the proof?',
-     confirmOnPress: onConfirm,
-   })
- }
-```
-
-</details>
+## Credentials
 
 <details>
 <summary>Using hooks to get credential info</summary>
@@ -360,3 +229,173 @@ as it is already stored when we receive the offer.
 ```
 
 </details
+
+<details>
+<summary>Deleting a credential</summary>
+
+In this section we delete a credential. When the credential has been removed from
+our wallet, we can not use it anymore for proof requests. This can be done if a
+credential is revoked by an issuer and does not need to be there anymore.
+
+**file**: `./src/hooks/useCredentialDetailHeader.tsx`
+
+```diff
+ const deleteCredential = () => {
+   const onConfirm = () => {
++    void agent.credentials.deleteById(id)
+     navigation.goBack()
+   }
+
+   customAlert({
+     title: 'Delete',
+     message: 'Are you sure you want to delete the credential?',
+     confirmOnPress: onConfirm,
+   })
+ }
+```
+
+</details>
+
+## Proofs
+
+<details>
+<summary>Using hooks to get proof info</summary>
+
+In this section we call the hooks from `@aries-framework/react-hooks` to
+get the agent and the proof related to the `id` we receive from the routing.
+
+**file**: `./src/pages/proofs/ProofDetails.tsx`
+
+```diff
+  const navigation = useStackNavigation()
+  const { colors } = useTheme()
+  const toast = useToast()
++ const { agent } = useAgent()
++ const proof = useProofById(id)
+  const [fields, setFields] = useState<FormattedRequestedCredentials>([])
+```
+
+</details>
+
+<details>
+<summary>Selecting the credentials for the proof request</summary>
+
+In this section we select the required credentials for the incoming proof request.
+We call `agent.proofs.getRequestedCredentialsForProofRequest(id)` to get all the
+credentials in the wallet which can be used to fulfill the proof request. Afterwards,
+we call `agent.proofs.autoSelectCredentialsForProofRequest(credentials)` which will
+automatically pick the first matching credentials and makes this flow a lot easier for us.
+If the real world, we would let the user pick these credentials themselves, but the UI
+can get quite complex for this.
+
+**file**: `./src/pages/proofs/ProofDetails.tsx`
+
+```diff
+
+ useEffect(() => {
+   void (async () => {
+      try {
++       const credentials = await agent.proofs.getRequestedCredentialsForProofRequest(id)
++       const requestedCredentials = agent.proofs.autoSelectCredentialsForProofRequest(credentials)
+
+        const formattedCredentials = formatRequestedCredentials(proof, requestedCredentials)
+        if (formattedCredentials.length === 0) {
+          deleteProof()
+        } else {
+          setFields(formattedCredentials)
+        }
+      } catch (e) {
+        toast.show({
+          placement: 'top',
+          title: e.toString(),
+          background: colors.error[500],
+        })
+        deleteProof()
+      }
+   })()
+ }, [])
+```
+
+</details>
+
+<details>
+<summary>Accepting a proof</summary>
+
+In this section we accept the proof request. We reuse the algorithm given to us by
+`@aries-framework/core`. Because we do not have any custom implementation for selecting the
+credentials, this will work everytime. This is not recommended in production, and the credentials
+selected by the user should also be excatly the same as used in the `agent.proofs.acceptRequest`
+function.
+
+**file**: `./src/hooks/useProofDetailHeader.tsx`
+
+```diff
+  const onAcceptProof = async () => {
+    try {
++     const credentials = await agent.proofs.getRequestedCredentialsForProofRequest(id)
++     const requestedCredentials = agent.proofs.autoSelectCredentialsForProofRequest(credentials)
++     void agent.proofs.acceptRequest(id, requestedCredentials)
+    } catch (e) {
+      toast.show({
+        placement: 'top',
+        title: 'Something went wrong while accepting the proof',
+        background: colors.error[500],
+      })
+      throw e
+    }
+    navigation.goBack()
+  }
+```
+
+</details
+
+<details>
+<summary>Deleting a proof</summary>
+
+In this section we delete a proof. This does not mean that the receiver does not
+have your data anymore. This means that the record containing the exchange, is
+deleted from your local wallet.
+
+**file**: `./src/hooks/useProofDetailHeader.tsx`
+
+```diff
+ const deleteProof = () => {
+   const onConfirm = () => {
++    void agent.proofs.deleteById(id)
+     navigation.goBack()
+   }
+
+   customAlert({
+     title: 'Delete',
+     message: 'Are you sure you want to delete the proof?',
+     confirmOnPress: onConfirm,
+   })
+ }
+```
+
+</details>
+
+<details>
+<summary>Deleting a proof</summary>
+
+In this section we implement the delete proof function so we can delete the proof
+when we do not have the required credentials for the request.
+
+**file**: `./src/pages/proofs/ProofDetails.tsx`
+
+```diff
+ const deleteProof = () => {
+   const onConfirm = () => {
++    void agent.proofs.deleteById(id)
+     navigation.goBack()
+   }
+
+   customAlert({
+     title: 'Delete',
+     message: 'Are you sure you want to delete the proof?',
+     confirmOnPress: onConfirm,
+   })
+ }
+```
+
+</details>
