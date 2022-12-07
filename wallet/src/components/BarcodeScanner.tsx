@@ -30,7 +30,11 @@ export const BarcodeScanner = () => {
       throw e
     }
 
-    await agent.oob.receiveInvitationFromUrl(scannedData, { reuseConnection: true }).catch(onError)
+    // IMPLEMENT
+    // At this point we validated data and we can receive the invitation on the agent
+    // tip: check the agent modules related to connections (connections and oob)
+    //      for help
+    // Bonus points if you can reuse the connection if it already exists.
 
     setIsLoading(false)
     navigation.goBack()
@@ -49,7 +53,11 @@ export const BarcodeScanner = () => {
     if (!scannedData) return
 
     try {
-      const invite = ConnectionInvitationMessage.fromUrl(scannedData)
+      // IMPLEMENT
+      // Here we have to parse the scanned QR code to an instance of `ConnectionInvitationMessage `.
+      //
+      // This is here so the linter will not complain
+      const invite = {} as ConnectionInvitationMessage
       customAlert({
         title: 'Invitation',
         message: `Received invitation from: ${invite.label}`,

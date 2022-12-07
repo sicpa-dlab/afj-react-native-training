@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { FlatList, useTheme } from 'native-base'
 import { useCredentialDetailsHeader, useCredentialFormatDataById, useStackNavigation } from '../../hooks'
-import { useAgent, useCredentialById } from '@aries-framework/react-hooks'
-import { CredentialState } from '@aries-framework/core'
+import { CredentialExchangeRecord, CredentialState } from '@aries-framework/core'
 import { SafeAreaView } from 'react-native'
 import { useToast } from 'native-base'
 import { DoubleButton, ListItem, Loader } from '../../components'
@@ -22,8 +21,13 @@ export const CredentialDetails: React.FC<CredentialDetailsProps> = ({ route }) =
   } = route
 
   useCredentialDetailsHeader(id)
-  const { agent } = useAgent()
-  const credential = useCredentialById(id)
+  // IMPLEMENT
+  // This application uses the @aries-framework/react-hooks` for state management
+  // Here we want to get the agent, and the credential (by id) so we can properly display some data
+  //
+  // This is here so the linter will not complain
+  const credential = {} as CredentialExchangeRecord
+
   const formattedData = useCredentialFormatDataById(id)
 
   const [isLoading, setIsLoading] = useState(false)
@@ -33,6 +37,7 @@ export const CredentialDetails: React.FC<CredentialDetailsProps> = ({ route }) =
 
   if (isLoading) return <Loader />
 
+  // @ts-ignore
   if (!credential || !formattedData) {
     toast.show({
       placement: 'top',
@@ -50,7 +55,11 @@ export const CredentialDetails: React.FC<CredentialDetailsProps> = ({ route }) =
     try {
       setIsLoading(true)
       const onConfirm = async () => {
-        await agent.credentials.declineOffer(id)
+        // IMPLEMENT
+        // Here we would like to decline the credential offer. For this we need the
+        // agent we added before via the hook.
+        // tip: check the credentials module on the agent for the available options
+
         setIsLoading(false)
         navigation.goBack()
       }
@@ -74,7 +83,8 @@ export const CredentialDetails: React.FC<CredentialDetailsProps> = ({ route }) =
   const onAcceptCredential = async () => {
     try {
       setIsLoading(true)
-      await agent.credentials.acceptOffer({ credentialRecordId: id })
+      // IMPLEMENT
+      // here we would like to accept the credential offer.
     } catch (e) {
       toast.show({
         placement: 'top',

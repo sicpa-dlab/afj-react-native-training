@@ -190,18 +190,22 @@ the record from our wallet and internally we have no reference to this anymore.
 **file**: `./src/hooks/useConnectionDetailsHeader.tsx`
 
 ```diff
- const deleteConnection = () => {
-   const onConfirm = () => {
-+    void agent.connections.deleteById(id)
-     navigation.goBack()
-   }
++ import { useAgent } from '@aries-framework/react-hooks'
 
-   customAlert({
-     title: 'Delete',
-     message: 'Are you sure you want to delete the connection?',
-     confirmOnPress: onConfirm,
-   })
- }
++ const { agent } = useAgent()
+
+  const deleteConnection = () => {
+    const onConfirm = () => {
++     void agent.connections.deleteById(id)
+      navigation.goBack()
+    }
+
+    customAlert({
+      title: 'Delete',
+      message: 'Are you sure you want to delete the connection?',
+      confirmOnPress: onConfirm,
+    })
+  }
 ```
 
 </details>
@@ -347,18 +351,22 @@ credential is revoked by an issuer and does not need to be there anymore.
 **file**: `./src/hooks/useCredentialDetailHeader.tsx`
 
 ```diff
- const deleteCredential = () => {
-   const onConfirm = () => {
++ import { useAgent } from '@aries-framework/react-hooks'
+
++ const { agent } = useAgent()
+
+  const deleteCredential = () => {
+    const onConfirm = () => {
 +    void agent.credentials.deleteById(id)
      navigation.goBack()
-   }
+    }
 
-   customAlert({
-     title: 'Delete',
-     message: 'Are you sure you want to delete the credential?',
-     confirmOnPress: onConfirm,
-   })
- }
+    customAlert({
+      title: 'Delete',
+      message: 'Are you sure you want to delete the credential?',
+      confirmOnPress: onConfirm,
+    })
+  }
 ```
 
 </details>
@@ -523,18 +531,22 @@ deleted from your local wallet.
 **file**: `./src/hooks/useProofDetailHeader.tsx`
 
 ```diff
- const deleteProof = () => {
-   const onConfirm = () => {
-+    void agent.proofs.deleteById(id)
-     navigation.goBack()
-   }
++ import { useAgent } from '@aries-framework/react-hooks'
 
-   customAlert({
-     title: 'Delete',
-     message: 'Are you sure you want to delete the proof?',
-     confirmOnPress: onConfirm,
-   })
- }
++ const { agent } = useAgent()
+
+  const deleteProof = () => {
+    const onConfirm = () => {
++     void agent.proofs.deleteById(id)
+      navigation.goBack()
+    }
+
+    customAlert({
+      title: 'Delete',
+      message: 'Are you sure you want to delete the proof?',
+      confirmOnPress: onConfirm,
+    })
+  }
 ```
 
 </details>

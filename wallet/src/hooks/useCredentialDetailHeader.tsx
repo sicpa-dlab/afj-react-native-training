@@ -1,4 +1,3 @@
-import { useAgent } from '@aries-framework/react-hooks'
 import { Ionicons } from '@expo/vector-icons'
 import React, { useEffect } from 'react'
 import { customAlert, formatSchemaName } from '../utils'
@@ -8,13 +7,14 @@ import { useCredentialFormatDataById } from './useCredentialFormatData'
 export const useCredentialDetailsHeader = (id: string) => {
   const navigation = useStackNavigation()
   const formattedData = useCredentialFormatDataById(id)
-  const { agent } = useAgent()
 
   const name = formatSchemaName(formattedData.offer?.indy?.schema_id)
 
   const deleteCredential = () => {
     const onConfirm = () => {
-      void agent.credentials.deleteById(id)
+      // IMPLEMENT
+      // Here we would like to delete the credential on the agent.
+
       navigation.goBack()
     }
 

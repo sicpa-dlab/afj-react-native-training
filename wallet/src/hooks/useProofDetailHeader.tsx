@@ -1,4 +1,4 @@
-import { useAgent, useProofById } from '@aries-framework/react-hooks'
+import { useProofById } from '@aries-framework/react-hooks'
 import { Ionicons } from '@expo/vector-icons'
 import React, { useEffect } from 'react'
 import { customAlert } from '../utils'
@@ -7,11 +7,13 @@ import { useStackNavigation } from './navigation'
 export const useProofDetailsHeader = (id: string) => {
   const navigation = useStackNavigation()
   const record = useProofById(id)
-  const { agent } = useAgent()
 
   const deleteProof = () => {
     const onConfirm = () => {
-      void agent.proofs.deleteById(id)
+      // IMPLEMENT
+      // Here we will delete a proof from the wallet. This does not remove the data
+      // from the verifier, but only from the local wallet.
+
       navigation.goBack()
     }
 
