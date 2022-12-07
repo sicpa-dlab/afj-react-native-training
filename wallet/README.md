@@ -25,13 +25,20 @@
 yarn install
 
 # Prebuilding both Android and iOS
+# note: the warnings displayed in this step are fine
 yarn prebuild
 
 # Building android
 yarn android
 
 # Building iOS
+# note: this will only work on macOS
+# note: this will throw an error as it does not work in
+#       a simulator. You can launch the app with xcode
 yarn ios
+
+# Again, only required for iOS builds
+open ios/UniccWalletWorkshop.xcworkspace/
 
 # Starting the dev server
 yarn start
