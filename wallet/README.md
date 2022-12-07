@@ -37,12 +37,35 @@ yarn start
 ## Snippets
 
 <details>
-    <summary>Click me</summary>
+<summary>Agent Setup</summary>
 
-  ### Some Code
-  ```js
-  function logSomething(something) {
-    console.log('Something', something);
+In this section the agent will be set up with a minimal configuration.
+This can be used to make sure the agent works. For more functionality
+we have to add more fields, which we will do later on.
+
+**file**: `./src/agent.ts`
+
+```ts
+import { InitConfig, LogLevel, ConsoleLogger } from '@aries-framework/core'
+import { Agent } from '@aries-framework/core'
+import { agentDependencies } from '@aries-framework/react-native'
+
+export const initializeAgent = async () => {
+  const config: InitConfig = {
+    label: 'wallet-demo-id4',
+    walletConfig: {
+      id: 'wallet-demo-id4',
+      key: 'testkey0000000000000000000000004',
+    },
+    logger: new ConsoleLogger(loglevel.debug)
   }
-  ```
+
+  const agent = new Agent(config, agentDependencies)
+
+  await agent.initialize()
+
+  return agent
+}
+```
 </details>
+
