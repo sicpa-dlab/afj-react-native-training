@@ -1,6 +1,6 @@
 import { useConnections, useCredentials } from '@aries-framework/react-hooks'
 import { Ionicons } from '@expo/vector-icons'
-import { Box, FlatList, useTheme, Image, Center, Spinner } from 'native-base'
+import { Box, FlatList, useTheme, Image } from 'native-base'
 import React from 'react'
 import { NoContent, CredentialItem } from '../../components'
 import { useCredentialsFormatData, useStackNavigation } from '../../hooks'
@@ -8,23 +8,15 @@ import { formatSchemaName } from '../../utils'
 
 export const Credentials = () => {
   const { colors } = useTheme()
-  const { records: connections, loading: loadingConnections } = useConnections()
-  const { records: credentials, loading: loadingCredentials } = useCredentials()
-  const { formattedData, loading: loadingFormattedData } = useCredentialsFormatData()
+  const { records: connections } = useConnections()
+  const { records: credentials } = useCredentials()
+  const { formattedData } = useCredentialsFormatData()
   const navigation = useStackNavigation()
 
   const onShowDetails = async (id: string) => {
     navigation.navigate('CredentialDetails', {
       id,
     })
-  }
-
-  if (loadingConnections || loadingCredentials || loadingFormattedData) {
-    return (
-      <Center height="full">
-        <Spinner />
-      </Center>
-    )
   }
 
   if (credentials.length === 0) {
