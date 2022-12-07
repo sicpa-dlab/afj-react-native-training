@@ -420,6 +420,8 @@ We will add some fields to the configuration of the agent.
   }
 ```
 
+</details>
+
 <details>
 <summary>Using hooks to get proof info</summary>
 
