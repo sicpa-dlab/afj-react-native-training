@@ -83,6 +83,51 @@ export const initializeAgent = async () => {
 ## Connections
 
 <details>
+<summary>Setting up the agent</summary>
+
+In this section we will set the agent up to work correctly with establishing connections.
+We will add some fields to the configuration of the agent.
+
+**file**: `./src/agent.ts`
+
+```diff
+  import {
+    ConsoleLogger,
++   HttpOutboundTransport,
+    InitConfig,
+    LogLevel,
++   WsOutboundTransport,
+  } from '@aries-framework/core'
+  import { Agent } from '@aries-framework/core'
+  import { agentDependencies } from '@aries-framework/react-native'
++ import { mediatorConnectionsInvite } from './mediator'
+
+  export const initializeAgent = async () => {
+    const config: InitConfig = {
+      label: 'wallet-demo-id4',
+      walletConfig: {
+        id: 'wallet-demo-id4',
+        key: 'testkey0000000000000000000000004',
+      },
++     autoAcceptConnections: true,
+      logger: new ConsoleLogger(LogLevel.off),
++     mediatorConnectionsInvite: mediatorConnectionsInvite,
+    }
+
+    const agent = new Agent(config, agentDependencies)
+
++   agent.registerOutboundTransport(new HttpOutboundTransport())
++   agent.registerOutboundTransport(new WsOutboundTransport())
+
+    await agent.initialize()
+
+    return agent
+  }
+```
+
+</details>
+
+<details>
 <summary>Parsing the barcode</summary>
 
 In this section we use a function that parses a URL to an connection invitation object.
@@ -162,6 +207,61 @@ the record from our wallet and internally we have no reference to this anymore.
 </details>
 
 ## Credentials
+
+<details>
+<summary>Setting up the agent</summary>
+
+In this section we will set the agent up to work correctly with receiving credentials.
+We will add some fields to the configuration of the agent.
+
+**file**: `./src/agent.ts`
+
+```diff
+  import {
++   AutoAcceptCredential,
+    ConsoleLogger,
+    HttpOutboundTransport,
+    InitConfig,
+    LogLevel,
+    WsOutboundTransport,
+  } from '@aries-framework/core'
+  import { Agent } from '@aries-framework/core'
+  import { agentDependencies } from '@aries-framework/react-native'
++ import { GENESIS_BCORVIN_TEST_NET } from './ledgers'
+  import { mediatorConnectionsInvite } from './mediator'
+
+  export const initializeAgent = async () => {
+    const config: InitConfig = {
+      label: 'wallet-demo-id4',
+      walletConfig: {
+        id: 'wallet-demo-id4',
+        key: 'testkey0000000000000000000000004',
+      },
+      autoAcceptConnections: true,
++     autoAcceptCredentials: AutoAcceptCredential.ContentApproved,
++     indyLedgers: [
++       {
++         id: 'bcovrin-test-net',
++         isProduction: false,
++         genesisTransactions: GENESIS_BCORVIN_TEST_NET,
++       },
++     ],
+      logger: new ConsoleLogger(LogLevel.off),
+      mediatorConnectionsInvite: mediatorConnectionsInvite,
+    }
+
+    const agent = new Agent(config, agentDependencies)
+
+    agent.registerOutboundTransport(new HttpOutboundTransport())
+    agent.registerOutboundTransport(new WsOutboundTransport())
+
+    await agent.initialize()
+
+    return agent
+  }
+```
+
+</details>
 
 <details>
 <summary>Using hooks to get credential info</summary>
@@ -264,6 +364,61 @@ credential is revoked by an issuer and does not need to be there anymore.
 </details>
 
 ## Proofs
+
+<details>
+<summary>Setting up the agent</summary>
+
+In this section we will set the agent up to work correctly with receiving proofs.
+We will add some fields to the configuration of the agent.
+
+**file**: `./src/agent.ts`
+
+```diff
+  import {
+    AutoAcceptCredential,
++   AutoAcceptProof,
+    ConsoleLogger,
+    HttpOutboundTransport,
+    InitConfig,
+    LogLevel,
+    WsOutboundTransport,
+  } from '@aries-framework/core'
+  import { Agent } from '@aries-framework/core'
+  import { agentDependencies } from '@aries-framework/react-native'
++ import { GENESIS_BCORVIN_TEST_NET } from './ledgers'
+  import { mediatorConnectionsInvite } from './mediator'
+
+  export const initializeAgent = async () => {
+    const config: InitConfig = {
+      label: 'wallet-demo-id4',
+      walletConfig: {
+        id: 'wallet-demo-id4',
+        key: 'testkey0000000000000000000000004',
+      },
+      autoAcceptConnections: true,
+      autoAcceptCredentials: AutoAcceptCredential.ContentApproved,
++     autoAcceptProofs: AutoAcceptProof.ContentApproved,
+      indyLedgers: [
+        {
+          id: 'bcovrin-test-net',
+          isProduction: false,
+          genesisTransactions: GENESIS_BCORVIN_TEST_NET,
+        },
+      ],
+      logger: new ConsoleLogger(LogLevel.off),
+      mediatorConnectionsInvite: mediatorConnectionsInvite,
+    }
+
+    const agent = new Agent(config, agentDependencies)
+
+    agent.registerOutboundTransport(new HttpOutboundTransport())
+    agent.registerOutboundTransport(new WsOutboundTransport())
+
+    await agent.initialize()
+
+    return agent
+  }
+```
 
 <details>
 <summary>Using hooks to get proof info</summary>
