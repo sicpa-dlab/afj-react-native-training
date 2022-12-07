@@ -347,7 +347,7 @@ function.
   }
 ```
 
-</details
+</details>
 
 <details>
 <summary>Deleting a proof</summary>
