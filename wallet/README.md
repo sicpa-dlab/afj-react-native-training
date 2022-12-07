@@ -123,12 +123,13 @@ way of connections (connections and Out of Band).
 
 </details>
 
-In this section we delete a proof. This does not mean that the receiver does not
-have your data anymore. This means that the record containing the exchange, is
-deleted from your local wallet.
 
 <details>
 <summary>Deleting a proof</summary>
+
+In this section we delete a proof. This does not mean that the receiver does not
+have your data anymore. This means that the record containing the exchange, is
+deleted from your local wallet.
 
 **file**: ./src/hooks/useProofDetailHeader.tsx
 
