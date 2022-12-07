@@ -9,13 +9,8 @@
 <br>
 
 <p align="center">
-  <a href="https://typescriptlang.org">
-    <img src="https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg" />
-  </a>
-</p>
-
-<p align="center">
-  <a href="#getting-started">Getting started</a> 
+  <a href="#getting-started">Getting started</a> |
+  <a href="#snippets">Snippets</a> |
 </p>
 
 ---
@@ -38,3 +33,16 @@ yarn ios
 # Starting the dev server
 yarn start
 ```
+
+## Snippets
+
+<details>
+    <summary>Click me</summary>
+
+  ### Some Code
+  ```js
+  function logSomething(something) {
+    console.log('Something', something);
+  }
+  ```
+</details>
