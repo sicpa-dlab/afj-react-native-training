@@ -28,15 +28,12 @@ export const ProofDetails: React.FC<ProofDetailsProps> = ({ route }) => {
   const { colors } = useTheme()
   const toast = useToast()
 
-  // ========= IMPLEMENT =========
   const { agent } = useAgent()
   const proof = useProofById(id)
-  // ========= IMPLEMENT =========
   const [fields, setFields] = useState<FormattedRequestedCredentials>([])
 
   useEffect(() => {
     void (async () => {
-      // ========= IMPLEMENT =========
       try {
         const credentials = await agent.proofs.getRequestedCredentialsForProofRequest(id)
         const requestedCredentials = agent.proofs.autoSelectCredentialsForProofRequest(credentials)
@@ -55,15 +52,12 @@ export const ProofDetails: React.FC<ProofDetailsProps> = ({ route }) => {
         })
         deleteProof()
       }
-      // ========= IMPLEMENT =========
     })()
   }, [])
 
   const deleteProof = () => {
     const onConfirm = () => {
-      // ========= IMPLEMENT =========
       void agent.proofs.deleteById(id)
-      // ========= IMPLEMENT =========
       navigation.goBack()
     }
 

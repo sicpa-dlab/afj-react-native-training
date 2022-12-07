@@ -11,9 +11,7 @@ export const useConnectionDetailsHeader = (id: string) => {
 
   const deleteConnection = () => {
     const onConfirm = () => {
-      // ========= IMPLEMENT =========
       void agent.connections.deleteById(id)
-      // ========= IMPLEMENT =========
       navigation.goBack()
     }
 

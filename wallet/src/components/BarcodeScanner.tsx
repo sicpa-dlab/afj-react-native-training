@@ -30,9 +30,7 @@ export const BarcodeScanner = () => {
       throw e
     }
 
-    // ========= IMPLEMENT =========
     await agent.oob.receiveInvitationFromUrl(scannedData, { reuseConnection: true }).catch(onError)
-    // ========= IMPLEMENT =========
 
     setIsLoading(false)
     navigation.goBack()
@@ -51,9 +49,7 @@ export const BarcodeScanner = () => {
     if (!scannedData) return
 
     try {
-      // ========= IMPLEMENT =========
       const invite = ConnectionInvitationMessage.fromUrl(scannedData)
-      // ========= IMPLEMENT =========
       customAlert({
         title: 'Invitation',
         message: `Received invitation from: ${invite.label}`,

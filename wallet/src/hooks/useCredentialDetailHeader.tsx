@@ -14,9 +14,7 @@ export const useCredentialDetailsHeader = (id: string) => {
 
   const deleteCredential = () => {
     const onConfirm = () => {
-      // ========= IMPLEMENT =========
       void agent.credentials.deleteById(id)
-      // ========= IMPLEMENT =========
       navigation.goBack()
     }
 

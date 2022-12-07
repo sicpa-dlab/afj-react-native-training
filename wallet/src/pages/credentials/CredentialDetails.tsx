@@ -22,11 +22,9 @@ export const CredentialDetails: React.FC<CredentialDetailsProps> = ({ route }) =
   } = route
 
   useCredentialDetailsHeader(id)
-  // ========= IMPLEMENT =========
   const { agent } = useAgent()
   const credential = useCredentialById(id)
   const formattedData = useCredentialFormatDataById(id)
-  // ========= IMPLEMENT =========
 
   const [isLoading, setIsLoading] = useState(false)
   const navigation = useStackNavigation()
@@ -52,9 +50,7 @@ export const CredentialDetails: React.FC<CredentialDetailsProps> = ({ route }) =
     try {
       setIsLoading(true)
       const onConfirm = async () => {
-        // ========= IMPLEMENT =========
         await agent.credentials.declineOffer(id)
-        // ========= IMPLEMENT =========
         setIsLoading(false)
         navigation.goBack()
       }
@@ -78,9 +74,7 @@ export const CredentialDetails: React.FC<CredentialDetailsProps> = ({ route }) =
   const onAcceptCredential = async () => {
     try {
       setIsLoading(true)
-      // ========= IMPLEMENT =========
       await agent.credentials.acceptOffer({ credentialRecordId: id })
-      // ========= IMPLEMENT =========
     } catch (e) {
       toast.show({
         placement: 'top',

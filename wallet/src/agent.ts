@@ -12,7 +12,6 @@ import { agentDependencies } from '@aries-framework/react-native'
 import { GENESIS_BCORVIN_TEST_NET } from './ledgers'
 
 export const initializeAgent = async () => {
-  // ========= IMPLEMENT =========
   const config: InitConfig = {
     label: 'wallet-demo-id4',
     walletConfig: {
@@ -41,7 +40,6 @@ export const initializeAgent = async () => {
   agent.registerOutboundTransport(new WsOutboundTransport())
 
   await agent.initialize()
-  // ========= IMPLEMENT =========
 
   return agent
 }

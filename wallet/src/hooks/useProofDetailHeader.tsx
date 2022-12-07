@@ -11,9 +11,7 @@ export const useProofDetailsHeader = (id: string) => {
 
   const deleteProof = () => {
     const onConfirm = () => {
-      // ========= IMPLEMENT =========
       void agent.proofs.deleteById(id)
-      // ========= IMPLEMENT =========
       navigation.goBack()
     }
 
