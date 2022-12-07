@@ -3,16 +3,14 @@ import { Ionicons } from '@expo/vector-icons'
 import { FlatList, useTheme, Text, Box, Center, Image } from 'native-base'
 import React from 'react'
 import { SafeAreaView, TouchableOpacity } from 'react-native'
-import { NoContent, ListItem, Loader } from '../../components'
+import { NoContent, ListItem } from '../../components'
 import { useStackNavigation } from '../../hooks'
 import { labelToLetters } from '../../utils'
 
 export const Connections = () => {
   const navigation = useStackNavigation()
-  const { records, loading } = useConnections()
+  const { records } = useConnections()
   const { colors } = useTheme()
-
-  if (loading) return <Loader />
 
   const onShowDetails = (id: string) => navigation.navigate('ConnectionDetails', { id })
 

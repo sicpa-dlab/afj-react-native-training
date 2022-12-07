@@ -2,13 +2,11 @@ import { FlatList } from 'native-base'
 import React from 'react'
 import { useProofs } from '@aries-framework/react-hooks'
 import { useStackNavigation } from '../../hooks'
-import { NoContent, ListItem, Loader } from '../../components'
+import { NoContent, ListItem } from '../../components'
 
 export const Proofs = () => {
-  const { records, loading } = useProofs()
+  const { records } = useProofs()
   const navigation = useStackNavigation()
-
-  if (loading) return <Loader />
 
   if (records.length === 0) {
     return <NoContent title="You have zero proofs" />
