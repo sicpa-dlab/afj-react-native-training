@@ -77,7 +77,7 @@ In this section we use a function that parses a URL to an connection invitation 
 This can be used to display information like the label, etc. It can also be used to
 accept the invitation.
 
-**file**: ./src/components/BarcodeScanner.tsx
+**file**: `./src/components/BarcodeScanner.tsx`
 
 ```diff
 try {
@@ -100,7 +100,7 @@ This means that if we already have a connection with the other entity, we will r
 that connection. With the new Out of Band module, we can accept both the old and the new
 way of connections (connections and Out of Band).
 
-**file**: ./src/components/BarcodeScanner.tsx
+**file**: `./src/components/BarcodeScanner.tsx`
 
 ```diff
  const onAcceptInvitation = async () => {
@@ -131,7 +131,7 @@ In this section we delete a proof. This does not mean that the receiver does not
 have your data anymore. This means that the record containing the exchange, is
 deleted from your local wallet.
 
-**file**: ./src/hooks/useProofDetailHeader.tsx
+**file**: `./src/hooks/useProofDetailHeader.tsx`
 
 ```diff
  const deleteProof = () => {
@@ -157,7 +157,7 @@ In this section we delete a credential. When the credential has been removed fro
 our wallet, we can not use it anymore for proof requests. This can be done if a
 credential is revoked by an issuer and does not need to be there anymore.
 
-**file**: ./src/hooks/useCredentialDetailHeader.tsx
+**file**: `./src/hooks/useCredentialDetailHeader.tsx`
 
 ```diff
  const deleteCredential = () => {
@@ -183,7 +183,7 @@ In this section we delete a connection. As with the proof, when deleting a conne
 we do not delete the other entities record of the connection with you. We simply remove
 the record from our wallet and internally we have no reference to this anymore.
 
-**file**: ./src/hooks/useConnectionDetailsHeader.tsx
+**file**: `./src/hooks/useConnectionDetailsHeader.tsx`
 
 ```diff
  const deleteConnection = () => {
@@ -208,7 +208,7 @@ the record from our wallet and internally we have no reference to this anymore.
 In this section we call the hooks from `@aries-framework/react-hooks` to
 get the agent and the proof related to the `id` we receive from the routing.
 
-**file**: ./src/pages/proofs/ProofDetails.tsx
+**file**: `./src/pages/proofs/ProofDetails.tsx`
 
 ```diff
   const navigation = useStackNavigation()
@@ -232,7 +232,7 @@ automatically pick the first matching credentials and makes this flow a lot easi
 If the real world, we would let the user pick these credentials themselves, but the UI
 can get quite complex for this.
 
-**file**: ./src/pages/proofs/ProofDetails.tsx
+**file**: `./src/pages/proofs/ProofDetails.tsx`
 
 ```diff
 
@@ -268,7 +268,7 @@ can get quite complex for this.
 In this section we implement the delete proof function so we can delete the proof
 when we do not have the required credentials for the request.
 
-**file**: ./src/pages/proofs/ProofDetails.tsx
+**file**: `./src/pages/proofs/ProofDetails.tsx`
 
 ```diff
  const deleteProof = () => {
@@ -293,7 +293,7 @@ when we do not have the required credentials for the request.
 In this section we use the hooks from `@aries-framework/react-hooks` in order
 to get the agent and the credential data associated with the id.
 
-**file**: ./src/pages/credentials/CredentialDetails.tsx
+**file**: `./src/pages/credentials/CredentialDetails.tsx`
 
 ```diff
 useCredentialDetailsHeader(id)
@@ -316,7 +316,7 @@ This can be for various reasons, mainly if the credential contains invaild data.
 We could also negotiate with the issuer about the data, but this is omitted as it
 can quickly create a lot of complexity in the UI.
 
-**file**: ./src/pages/credentials/CredentialDetails.tsx
+**file**: `./src/pages/credentials/CredentialDetails.tsx`
 
 ```diff
      const onConfirm = async () => {
@@ -339,7 +339,7 @@ can quickly create a lot of complexity in the UI.
 In this section we accept a credential offer. The API only requires the id of the record
 as it is already stored when we receive the offer.
 
-**file**: ./src/pages/credentials/CredentialDetails.tsx
+**file**: `./src/pages/credentials/CredentialDetails.tsx`
 
 ```diff
  const onAcceptCredential = async () => {
