@@ -228,7 +228,7 @@ as it is already stored when we receive the offer.
  }
 ```
 
-</details
+</details>
 
 <details>
 <summary>Deleting a credential</summary>
