@@ -45,30 +45,33 @@ we have to add more fields, which we will do later on.
 
 **file**: `./src/agent.ts`
 
-```ts
+```diff
 import { InitConfig, LogLevel, ConsoleLogger } from '@aries-framework/core'
 import { Agent } from '@aries-framework/core'
 import { agentDependencies } from '@aries-framework/react-native'
 
 export const initializeAgent = async () => {
-  const config: InitConfig = {
-    label: 'wallet-demo-id4',
-    walletConfig: {
-      id: 'wallet-demo-id4',
-      key: 'testkey0000000000000000000000004',
-    },
-    logger: new ConsoleLogger(loglevel.debug),
-  }
++ const config: InitConfig = {
++   label: 'wallet-demo-id4',
++   walletConfig: {
++     id: 'wallet-demo-id4',
++     key: 'testkey0000000000000000000000004',
++   },
++   logger: new ConsoleLogger(loglevel.debug),
++ }
 
   const agent = new Agent(config, agentDependencies)
 
-  await agent.initialize()
++ await agent.initialize()
 
   return agent
 }
 ```
 
 </details>
+
+<details>
+<summary>Parsing the barcode</summary>
 
 **file**: ./src/components/BarcodeScanner.tsx
 
@@ -82,6 +85,13 @@ try {
     confirmOnPress: onAcceptInvitation,
   })
 ```
+
+</details>
+
+<details>
+<summary>Accepting the invitation</summary>
+
+**file**: ./src/components/BarcodeScanner.tsx
 
 ```diff
  const onAcceptInvitation = async () => {
@@ -102,6 +112,11 @@ try {
  }
 ```
 
+</details>
+
+<details>
+<summary>Deleting a proof</summary>
+
 **file**: ./src/hooks/useProofDetailHeader.tsx
 
 ```diff
@@ -118,6 +133,11 @@ try {
    })
  }
 ```
+
+</details>
+
+<details>
+<summary>Deleting a credential</summary>
 
 **file**: ./src/hooks/useCredentialDetailHeader.tsx
 
@@ -136,12 +156,17 @@ try {
  }
 ```
 
+</details>
+
+<details>
+<summary>Deleting a connection</summary>
+
 **file**: ./src/hooks/useConnectionDetailsHeader.tsx
 
 ```diff
  const deleteConnection = () => {
    const onConfirm = () => {
-+     void agent.connections.deleteById(id)
++    void agent.connections.deleteById(id)
      navigation.goBack()
    }
 
@@ -153,6 +178,11 @@ try {
  }
 ```
 
+</details>
+
+<details>
+<summary>Using hooks to get proof info</summary>
+
 **file**: ./src/pages/proofs/ProofDetails.tsx
 
 ```diff
@@ -163,6 +193,13 @@ try {
 + const proof = useProofById(id)
   const [fields, setFields] = useState<FormattedRequestedCredentials>([])
 ```
+
+</details>
+
+<details>
+<summary>Accepting a proof request
+
+**file**: ./src/pages/proofs/ProofDetails.tsx
 
 ```diff
 
@@ -190,6 +227,13 @@ try {
  }, [])
 ```
 
+</details>
+
+<details>
+<summary>Deleting a proof</summary>
+
+**file**: ./src/pages/proofs/ProofDetails.tsx
+
 ```diff
  const deleteProof = () => {
    const onConfirm = () => {
@@ -205,6 +249,13 @@ try {
  }
 ```
 
+</details>
+
+<details>
+<summary>Using hooks to get credential info</summary>
+
+**file**: ./src/pages/credentials/CredentialDetails.tsx
+
 ```diff
 useCredentialDetailsHeader(id)
 + const { agent } = useAgent()
@@ -215,6 +266,13 @@ useCredentialDetailsHeader(id)
   const { colors } = useTheme()
   const toast = useToast()
 ```
+
+</details>
+
+<details>
+<summary>Declining a credential offer</summary>
+
+**file**: ./src/pages/credentials/CredentialDetails.tsx
 
 ```diff
      const onConfirm = async () => {
@@ -228,6 +286,13 @@ useCredentialDetailsHeader(id)
        confirmOnPress: onConfirm,
      })
 ```
+
+</details>
+
+<details>
+<summary>Accepting a credential offer</summary>
+
+**file**: ./src/pages/credentials/CredentialDetails.tsx
 
 ```diff
  const onAcceptCredential = async () => {
@@ -246,3 +311,5 @@ useCredentialDetailsHeader(id)
    navigation.goBack()
  }
 ```
+
+</details
