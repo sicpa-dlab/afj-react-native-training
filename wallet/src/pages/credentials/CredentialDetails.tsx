@@ -22,8 +22,10 @@ export const CredentialDetails: React.FC<CredentialDetailsProps> = ({ route }) =
 
   useCredentialDetailsHeader(id)
   // IMPLEMENT
-  // This application uses the @aries-framework/react-hooks` for state management
-  // Here we want to get the agent, and the credential (by id) so we can properly display some data
+  // This application uses the `@aries-framework/react-hooks` for state management
+  // Here we want to get the following:
+  // 1. agent so we can accept/decline credentials
+  // 2. the credential (by id) so we can properly display some data
   //
   // This is here so the linter will not complain
   const credential = {} as CredentialExchangeRecord

@@ -1,9 +1,9 @@
 import React from 'react'
 import { FlatList } from 'native-base'
 import { useConnectionDetailsHeader } from '../../hooks'
-import { useConnectionById } from '@aries-framework/react-hooks'
 import { SafeAreaView } from 'react-native'
 import { RecordListItem } from '../../components'
+import { ConnectionRecord } from '@aries-framework/core'
 
 export type ConnectionDetailsRouteParams = {
   id: string
@@ -19,7 +19,10 @@ export const ConnectionDetails: React.FC<ConnectionDetailProps> = ({ route }) =>
   } = route
   useConnectionDetailsHeader(id)
 
-  const record = useConnectionById(id)
+  // IMPLEMENT
+  // here we would like to get the connection record from the id we received from
+  // the routing
+  const record = {} as ConnectionRecord
 
   return (
     <SafeAreaView>

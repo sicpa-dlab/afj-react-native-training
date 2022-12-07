@@ -128,6 +128,22 @@ We will add some fields to the configuration of the agent.
 </details>
 
 <details>
+<summary>Displaying connection data</summary>
+
+In this section we will use the `@aries-framework/react-hooks` to get the connection
+record data by id.
+
+**file**: `./src/pages/connections/ConnectionDetails.tsx`
+
+```diff
+  useConnectionDetailsHeader(id)
+
++ const record = useConnectionById(id)
+```
+
+</details>
+
+<details>
 <summary>Parsing the barcode</summary>
 
 In this section we use a function that parses a URL to an connection invitation object.
