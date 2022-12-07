@@ -23,6 +23,7 @@ export const useConnectionDetailsHeader = (id: string) => {
       confirmOnPress: onConfirm,
     })
   }
+
   useEffect(() => {
     navigation.setOptions({
       title: record.theirLabel ?? 'Unknown Contact',
