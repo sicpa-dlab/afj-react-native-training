@@ -38,8 +38,8 @@ export const ProofDetails: React.FC<ProofDetailsProps> = ({ route }) => {
     void (async () => {
       // ========= IMPLEMENT =========
       try {
-        const creds = await agent.proofs.getRequestedCredentialsForProofRequest(id)
-        const requestedCredentials = agent.proofs.autoSelectCredentialsForProofRequest(creds)
+        const credentials = await agent.proofs.getRequestedCredentialsForProofRequest(id)
+        const requestedCredentials = agent.proofs.autoSelectCredentialsForProofRequest(credentials)
 
         const formattedCredentials = formatRequestedCredentials(proof, requestedCredentials)
         if (formattedCredentials.length === 0) {

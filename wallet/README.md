@@ -73,6 +73,10 @@ export const initializeAgent = async () => {
 <details>
 <summary>Parsing the barcode</summary>
 
+In this section we use a function that parses a URL to an connection invitation object.
+This can be used to display information like the label, etc. It can also be used to
+accept the invitation.
+
 **file**: ./src/components/BarcodeScanner.tsx
 
 ```diff
@@ -90,6 +94,11 @@ try {
 
 <details>
 <summary>Accepting the invitation</summary>
+
+In this section we accept the invitation. Note that we set `reuseConnection` to true.
+This means that if we already have a connection with the other entity, we will reuse
+that connection. With the new Out of Band module, we can accept both the old and the new
+way of connections (connections and Out of Band).
 
 **file**: ./src/components/BarcodeScanner.tsx
 
@@ -113,6 +122,10 @@ try {
 ```
 
 </details>
+
+In this section we delete a proof. This does not mean that the receiver does not
+have your data anymore. This means that the record containing the exchange, is
+deleted from your local wallet.
 
 <details>
 <summary>Deleting a proof</summary>
@@ -139,6 +152,10 @@ try {
 <details>
 <summary>Deleting a credential</summary>
 
+In this section we delete a credential. When the credential has been removed from
+our wallet, we can not use it anymore for proof requests. This can be done if a
+credential is revoked by an issuer and does not need to be there anymore.
+
 **file**: ./src/hooks/useCredentialDetailHeader.tsx
 
 ```diff
@@ -160,6 +177,10 @@ try {
 
 <details>
 <summary>Deleting a connection</summary>
+
+In this section we delete a connection. As with the proof, when deleting a connection
+we do not delete the other entities record of the connection with you. We simply remove
+the record from our wallet and internally we have no reference to this anymore.
 
 **file**: ./src/hooks/useConnectionDetailsHeader.tsx
 
@@ -183,6 +204,9 @@ try {
 <details>
 <summary>Using hooks to get proof info</summary>
 
+In this section we call the hooks from `@aries-framework/react-hooks` to
+get the agent and the proof related to the `id` we receive from the routing.
+
 **file**: ./src/pages/proofs/ProofDetails.tsx
 
 ```diff
@@ -197,7 +221,15 @@ try {
 </details>
 
 <details>
-<summary>Accepting a proof request</summary>
+<summary>Selecting the credentials for the proof request</summary>
+
+In this section we select the required credentials for the incoming proof request.
+We call `agent.proofs.getRequestedCredentialsForProofRequest(id)` to get all the
+credentials in the wallet which can be used to fulfill the proof request. Afterwards,
+we call `agent.proofs.autoSelectCredentialsForProofRequest(credentials)` which will
+automatically pick the first matching credentials and makes this flow a lot easier for us.
+If the real world, we would let the user pick these credentials themselves, but the UI
+can get quite complex for this.
 
 **file**: ./src/pages/proofs/ProofDetails.tsx
 
@@ -206,8 +238,8 @@ try {
  useEffect(() => {
    void (async () => {
       try {
-+       const creds = await agent.proofs.getRequestedCredentialsForProofRequest(id)
-+       const requestedCredentials = agent.proofs.autoSelectCredentialsForProofRequest(creds)
++       const credentials = await agent.proofs.getRequestedCredentialsForProofRequest(id)
++       const requestedCredentials = agent.proofs.autoSelectCredentialsForProofRequest(credentials)
 
         const formattedCredentials = formatRequestedCredentials(proof, requestedCredentials)
         if (formattedCredentials.length === 0) {
@@ -232,6 +264,9 @@ try {
 <details>
 <summary>Deleting a proof</summary>
 
+In this section we implement the delete proof function so we can delete the proof
+when we do not have the required credentials for the request.
+
 **file**: ./src/pages/proofs/ProofDetails.tsx
 
 ```diff
@@ -254,6 +289,9 @@ try {
 <details>
 <summary>Using hooks to get credential info</summary>
 
+In this section we use the hooks from `@aries-framework/react-hooks` in order
+to get the agent and the credential data associated with the id.
+
 **file**: ./src/pages/credentials/CredentialDetails.tsx
 
 ```diff
@@ -271,6 +309,11 @@ useCredentialDetailsHeader(id)
 
 <details>
 <summary>Declining a credential offer</summary>
+
+In this section we add the functionality to decline a credential offer.
+This can be for various reasons, mainly if the credential contains invaild data.
+We could also negotiate with the issuer about the data, but this is omitted as it
+can quickly create a lot of complexity in the UI.
 
 **file**: ./src/pages/credentials/CredentialDetails.tsx
 
@@ -291,6 +334,9 @@ useCredentialDetailsHeader(id)
 
 <details>
 <summary>Accepting a credential offer</summary>
+
+In this section we accept a credential offer. The API only requires the id of the record
+as it is already stored when we receive the offer.
 
 **file**: ./src/pages/credentials/CredentialDetails.tsx
 
